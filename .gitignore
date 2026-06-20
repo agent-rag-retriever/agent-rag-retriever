@@ -1,0 +1,11 @@
+# Ignore local Vector DB databases
+chroma_db/
+chroma_db_storage/
+mock_repo/
+
+# Python caching
+__pycache__/
+*.pyc
+
+# Local environment settings
+.env
