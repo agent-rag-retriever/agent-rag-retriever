@@ -1,11 +1,8 @@
 --- a/devops-integration/src/agents/agent4-gitBridge.js
 +++ b/devops-integration/src/agents/agent4-gitBridge.js
-@@ -2,6 +2,8 @@
-   return repoUrl.replace('https://', `https://${token}@`);
- }
- 
+@@ -1,3 +1,5 @@
 +const GITHUB_API = 'https://api.github.com';
 +
- async function openPullRequest({ owner, repo, token, head, base, title, body }) {
-   const response = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/pulls`, {
-     method: 'POST',
+ function buildAuthenticatedUrl(repoUrl, token) {
+   return repoUrl.replace('https://', `https://${token}@`);
+ }
