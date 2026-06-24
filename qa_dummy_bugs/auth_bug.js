@@ -1,20 +1,11 @@
-function loginUser(req, res) {
-    // BUG: Entering an endless recursive loop if session fails
-    if (!req.session) {
-        return loginUser(req, res);
-    }
-    
-    return res.status(200).send("Logged in");
-}
-
-module.exports = { loginUser };
-
-// Triggering CI failure 1782324404756
-
-// Triggering CI failure 1782324906655
-
-// Triggering CI failure 1782324917204
-
-// Triggering CI failure 1782325276931
-
-// Triggering CI failure 1782325541046
+--- a/qa_dummy_bugs/auth_bug.js
++++ b/qa_dummy_bugs/auth_bug.js
+@@ -1,7 +1,7 @@
+ function loginUser(req, res) {
+     // BUG: Entering an endless recursive loop if session fails
+     if (!req.session) {
+-        return loginUser(req, res);
++        return res.status(401).send("Unauthorized: Session required");
+     }
+     
+     return res.status(200).send("Logged in");
