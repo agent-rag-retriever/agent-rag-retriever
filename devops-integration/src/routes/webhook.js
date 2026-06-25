@@ -77,9 +77,12 @@ async function handleGitHubEvent(event, payload) {
     try {
       const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
       
+      const owner = payload.repository.owner?.login || payload.repository.full_name.split('/')[0];
+      const repoName = payload.repository.name || payload.repository.full_name.split('/')[1];
+
       const { data: jobsData } = await octokit.rest.actions.listJobsForWorkflowRun({
-        owner: payload.repository.owner.login,
-        repo: payload.repository.name,
+        owner: owner,
+        repo: repoName,
         run_id: payload.workflow_run.id
       });
       
@@ -90,8 +93,8 @@ async function handleGitHubEvent(event, payload) {
       }
       
       const { data: logData } = await octokit.rest.actions.downloadJobLogsForWorkflowRun({
-        owner: payload.repository.owner.login,
-        repo: payload.repository.name,
+        owner: owner,
+        repo: repoName,
         job_id: failedJob.id
       });
       

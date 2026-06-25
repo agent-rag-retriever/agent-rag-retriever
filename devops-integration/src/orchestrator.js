@@ -142,7 +142,7 @@ async function runTriagePipeline({ incidentId, rawLog, source, repoPath, repoUrl
 
     publish('agent:done', { agent: 'git_bridge', incidentId, result: { prUrl: gitData.prUrl } });
     publish('log', { level: 'success', agent: 'git_bridge', msg: `PR successfully created: ${gitData.prUrl}` });
-    publish('pipeline:success', { incidentId, prUrl: gitData.prUrl });
+    publish('pipeline:done', { incidentId, prUrl: gitData.prUrl, status: 'resolved' });
 
   } catch (err) {
     handleError('git_bridge', incidentId, err);

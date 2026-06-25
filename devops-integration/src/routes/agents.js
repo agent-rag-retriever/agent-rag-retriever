@@ -53,13 +53,13 @@ router.post('/trigger-git-push', async (req, res) => {
   const git = simpleGit(repoPath);
 
   try {
-    // 0. Fetch ngrok url
-    let ngrokUrl = 'http://localhost:4000';
+    // 2. Fetch the current ngrok URL
+    let ngrokUrl = 'http://127.0.0.1:4000'; // fallback
     try {
-      const resp = await fetch('http://localhost:4040/api/tunnels');
-      const data = await resp.json();
-      if (data.tunnels && data.tunnels.length > 0) {
-        ngrokUrl = data.tunnels[0].public_url;
+      const ngrokRes = await fetch('http://127.0.0.1:4040/api/tunnels');
+      const ngrokData = await ngrokRes.json();
+      if (ngrokData.tunnels && ngrokData.tunnels.length > 0) {
+        ngrokUrl = ngrokData.tunnels[0].public_url;
       }
     } catch(e) { console.error('Failed to get ngrok url:', e.message); }
 
